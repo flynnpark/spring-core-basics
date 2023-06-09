@@ -3,15 +3,14 @@ package dev.flynnpark.springcorebasics;
 import dev.flynnpark.springcorebasics.member.Grade;
 import dev.flynnpark.springcorebasics.member.Member;
 import dev.flynnpark.springcorebasics.member.MemberService;
-import dev.flynnpark.springcorebasics.member.MemberServiceImpl;
 import dev.flynnpark.springcorebasics.order.Order;
 import dev.flynnpark.springcorebasics.order.OrderService;
-import dev.flynnpark.springcorebasics.order.OrderServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);

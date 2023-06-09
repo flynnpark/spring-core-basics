@@ -1,14 +1,17 @@
 package dev.flynnpark.springcorebasics.order;
 
 import dev.flynnpark.springcorebasics.discount.DiscountPolicy;
-import dev.flynnpark.springcorebasics.discount.RateDiscountPolicy;
 import dev.flynnpark.springcorebasics.member.Member;
 import dev.flynnpark.springcorebasics.member.MemberRepository;
-import dev.flynnpark.springcorebasics.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
