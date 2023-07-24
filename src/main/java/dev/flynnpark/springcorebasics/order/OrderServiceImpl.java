@@ -1,10 +1,10 @@
 package dev.flynnpark.springcorebasics.order;
 
+import dev.flynnpark.springcorebasics.annotation.MainDiscountPolicy;
 import dev.flynnpark.springcorebasics.discount.DiscountPolicy;
 import dev.flynnpark.springcorebasics.member.Member;
 import dev.flynnpark.springcorebasics.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +13,7 @@ public class OrderServiceImpl implements OrderService {
     private final DiscountPolicy discountPolicy;
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

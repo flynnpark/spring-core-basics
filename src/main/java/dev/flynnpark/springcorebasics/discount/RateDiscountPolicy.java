@@ -1,12 +1,13 @@
 package dev.flynnpark.springcorebasics.discount;
 
+import dev.flynnpark.springcorebasics.annotation.MainDiscountPolicy;
 import dev.flynnpark.springcorebasics.member.Grade;
 import dev.flynnpark.springcorebasics.member.Member;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("mainDiscountPolicy")
+@MainDiscountPolicy
 public class RateDiscountPolicy implements DiscountPolicy{
     private int discountPrice = 10;
 
