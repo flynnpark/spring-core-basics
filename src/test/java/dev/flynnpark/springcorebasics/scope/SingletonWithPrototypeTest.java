@@ -1,6 +1,7 @@
 package dev.flynnpark.springcorebasics.scope;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.inject.Provider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -32,19 +33,29 @@ public class SingletonWithPrototypeTest {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
     }
+
+//    @Scope("singleton")
+//    static class ClientBean {
+//        @Autowired
+//        private ObjectProvider<PrototypeBean> prototypeBeanObjectProvider;
+//
+//        public int logic() {
+//            PrototypeBean prototypeBean = prototypeBeanObjectProvider.getObject();
+//            prototypeBean.addCount();
+//            return prototypeBean.getCount();
+//        }
+//    }
+
 
     @Scope("singleton")
     static class ClientBean {
-        private final PrototypeBean prototypeBean;
-
         @Autowired
-        public ClientBean(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
-        }
+        private Provider<PrototypeBean> provider;
 
         public int logic() {
+            PrototypeBean prototypeBean = provider.get();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
